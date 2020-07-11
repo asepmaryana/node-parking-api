@@ -1,0 +1,3 @@
+hash bcrypt:
+admin: $2b$10$mRgncyzuVsqMzdLZ26oAkONCo3eQl8KChDDOWes9.NOGRT8n1IZNO
+user: $2b$10$sMiuIx.4c9EM9SRBnaI0MuQlr/AmCzrL7J9xXZZQfmsGNPd9zZJqy

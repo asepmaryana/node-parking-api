@@ -1,0 +1,77 @@
+CREATE TABLE role
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id),
+	UNIQUE(name)
+) ENGINE=InnoDB;
+
+CREATE TABLE users
+(
+	id VARCHAR(36) NOT NULL,
+	username VARCHAR(255) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	firstname VARCHAR(255) NOT NULL,
+	lastname VARCHAR(255),
+	foto VARCHAR(255),
+	phone VARCHAR(255),
+	active BIT DEFAULT 0,
+	role_id INT,
+	PRIMARY KEY(id),
+	UNIQUE(username),
+	FOREIGN KEY(role_id) REFERENCES role(id) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE vehicle
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255),
+	PRIMARY KEY(id),
+	UNIQUE(name)
+) ENGINE=InnoDB;
+
+CREATE TABLE fare
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	vehicle_id INT,
+	one_hour INT NOT NULL DEFAULT 0,
+	more_one INT NOT NULL DEFAULT 0,
+	max_pay INT NOT NULL DEFAULT 0,
+	daily INT NOT NULL DEFAULT 0,
+	capacity INT NOT NULL DEFAULT 0,
+	PRIMARY KEY(id),
+	FOREIGN KEY(vehicle_id) REFERENCES vehicle(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE trx
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	plat_number VARCHAR(10) NOT NULL,
+	vehicle_id INT,
+	checked_in DATETIME,
+	checked_out DATETIME,
+	duration INT NOT NULL DEFAULT 1,
+	amount INT NOT NULL DEFAULT 0,
+	note VARCHAR(255),
+	user_checked_in VARCHAR(36),
+	user_checked_out VARCHAR(36),
+	PRIMARY KEY(id),
+	INDEX(plat_number),
+	FOREIGN KEY(vehicle_id) REFERENCES vehicle(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(user_checked_in) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(user_checked_out) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE trx_recap
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	trx_date DATE NOT NULL,
+	bike_checkin_count INT NOT NULL DEFAULT 0,
+	bike_checkout_count INT NOT NULL DEFAULT 0,
+	car_checkin_count INT NOT NULL DEFAULT 0,
+	car_checkout_count INT NOT NULL DEFAULT 0,
+	bike_trx_sum INT NOT NULL DEFAULT 0,
+	car_trx_sum INT NOT NULL DEFAULT 0,
+	PRIMARY KEY(id),
+	UNIQUE(trx_date)
+) ENGINE=InnoDB;
