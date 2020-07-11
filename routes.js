@@ -49,9 +49,12 @@ module.exports = function (app) {
     app.route('/api/users')
         .get(userController.lists)
 
+    app.route('/api/user')
+        .post(userController.store)
+
     app.route('/api/roles')
         .get(roleController.getRoles)
-        
+
     app.route('/auth/login')
         .post(authController.login)
 }
