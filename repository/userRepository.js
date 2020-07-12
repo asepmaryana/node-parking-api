@@ -11,6 +11,6 @@ module.exports = {
             callback)
     },
     getById: (con, id, callback) => {
-        
+        con.query("SELECT u.*,r.name as role FROM users u LEFT JOIN role r ON u.role_id = r.id WHERE u.id=?",[id], callback)
     }
 }

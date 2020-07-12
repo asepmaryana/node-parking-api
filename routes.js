@@ -1,5 +1,7 @@
 'use strict';
 
+const trxController = require('./controller/trxController');
+
 module.exports = function (app) {
     const fareController = require('./controller/fareController')
     const vehicleController = require('./controller/vehicleController')
@@ -52,9 +54,18 @@ module.exports = function (app) {
     app.route('/api/user')
         .post(userController.store)
 
+    app.route('/api/user/:id')
+        .get(userController.find)
+
     app.route('/api/roles')
         .get(roleController.getRoles)
 
+    app.route('/api/trx/checkin')
+        .post(trxController.checkIn)
+        
     app.route('/auth/login')
         .post(authController.login)
+    
+    app.route('/auth/info')
+        .get(authController.info)
 }

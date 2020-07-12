@@ -2,7 +2,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const dao = require('../repository/userRepository');
-
+const auth = require('../helper/authHelper');
 module.exports = {
     login: (req, res) => {
         let username = req.body.username;
@@ -24,5 +24,11 @@ module.exports = {
                 }
             })
         }
+    },
+    info: (req, res) => {
+        console.log('authHeader: ');
+        const info = auth.getInfo(req);
+        console.log(info);
+        res.json(info);        
     }
 }

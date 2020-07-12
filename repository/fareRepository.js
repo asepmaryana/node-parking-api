@@ -17,5 +17,8 @@ module.exports = {
     },
     delete: (con, id, callback) => {
         con.query("DELETE FROM fare WHERE id=?", [id], callback)
+    },
+    getByVehicleId: (con, vehicle_id, callback) => {        
+        con.query("SELECT * FROM fare WHERE vehicle_id=?", [vehicle_id], callback)
     }
 }

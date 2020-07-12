@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
 const dao = require('../repository/userRepository')
 const uuid = require('uuid')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt')
 
 module.exports = {
     lists: (req, res) => {
@@ -11,7 +11,9 @@ module.exports = {
         })
     },
     find: (req, res) => {
-
+        dao.getById(req.con, req.params.id, (err, rows) => {
+            res.json(rows)
+        })
     },
     store: (req, res) => {
         let user = req.body
