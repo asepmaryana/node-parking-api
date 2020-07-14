@@ -10,7 +10,7 @@ module.exports = {
         // ambil info tarif
         fareDao.getByVehicleId(req.con, req.body.vehicle_id, (err, row) => {
             let fare = row[0]
-            if (fare == null) res.status(404).json({ message: 'Tarif untuk jenis kendaraan tidak ditemukan !' })
+            if (fare == null) res.status(400).json({ message: 'Tarif untuk jenis kendaraan tidak ditemukan !' })
 
             // hitung yg blm check out
             let total = 0
@@ -18,7 +18,7 @@ module.exports = {
                 total = row[0].total
                 total++
                 if (total >= fare.capacity) {
-                    res.status(404).json({ message: 'Kendaraan sudah penuh !'})
+                    res.status(400).json({ message: 'Kendaraan sudah penuh !'})
                 }
                 else {            
                     let info = auth.getInfo(req)
@@ -32,7 +32,7 @@ module.exports = {
                         if (rows.length > 0) {
                             let row = rows[0]
                             if (row.checked_out == null) {
-                                res.status(404).json({ message: 'Kendaraan sudah melakukan check in !'})
+                                res.status(400).json({ message: 'Kendaraan sudah melakukan check in !'})
                             }
                             else {
                                 module.exports.insert(req.con, data)

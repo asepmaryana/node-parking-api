@@ -4,7 +4,7 @@ Aplikasi REST-API parkir berbasis NodeJS, ExpressJS, MySQL dan JSON Web Token (J
 
 ## Setting database
 
-Lakukan pembuatan database pada MySQL yang dilanjutkan dengan melakukan import file sql kedalam database yang baru dibuat.
+Lakukan pembuatan database pada MySQL yang dilanjutkan dengan melakukan import file sql yang ada dalam folder `mysql` kedalam database yang baru dibuat.
 File tersebut yaitu :
 1. schema.sql
 2. data.sql
