@@ -63,5 +63,15 @@ module.exports = {
                 trxRecapDao.update(con, column, trx_date)
             }
         })
+    },
+    getCheckInList: (req, res) => {
+        let vehicle_id = typeof(req.query.vehicle_id) == 'undefined' ? '' : req.query.vehicle_id
+        let date = typeof(req.query.date) == 'undefined' ? '' : req.query.date 
+        let page = typeof(req.query.page) == 'undefined' ? '1' : req.query.page
+        let size = typeof(req.query.size) == 'undefined' ? '10' : req.query.size
+        //console.log('vehicle_id:'+vehicle_id+', date:'+date+', page:'+page+', size:'+size)
+        trxDao.getCheckInList(req.con, {vehicle_id: vehicle_id, date: date}, (err, rows) => {
+            res.json(rows)
+        })
     }
 }

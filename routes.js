@@ -62,7 +62,10 @@ module.exports = function (app) {
 
     app.route('/api/trx/checkin')
         .post(trxController.checkIn)
-        
+    
+    app.route('/api/trx/checkin/list')
+        .get(trxController.getCheckInList)
+
     app.route('/auth/login')
         .post(authController.login)
     

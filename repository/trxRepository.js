@@ -8,5 +8,13 @@ module.exports = {
     save: (con, data, callback) => {
         con.query("INSERT INTO trx (plat_number,vehicle_id,checked_in,user_checked_in) VALUES (?,?,?,?)",
         [data.plat_number, data.vehicle_id, data.checked_in, data.user_checked_in], callback)
+    },
+    getCheckInList: (con, crit, callback) => {
+        let sql = "SELECT t.*,v.name as vehicle FROM trx t LEFT JOIN vehicle v ON t.vehicle_id=v.id WHERE t.checked_out IS NULL ";
+        if (crit.vehicle_id != '') sql = sql + "AND t.vehicle_id = "+crit.vehicle_id+" ";
+        if (crit.date != '') sql = sql + "AND DATE(t.checked_in) = '"+crit.date+"' ";
+        sql = sql + "ORDER BY t.id DESC ";
+        //console.log(sql);
+        con.query(sql, callback);
     }
 }
