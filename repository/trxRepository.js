@@ -16,5 +16,17 @@ module.exports = {
         sql = sql + "ORDER BY t.id DESC ";
         //console.log(sql);
         con.query(sql, callback);
-    }
+    },
+    update: (con, data) => {
+        con.query("UPDATE trx SET checked_out=?,amount=?,duration=?,user_checked_out=? WHERE id=?", 
+        [data.checked_out, data.amount, data.duration, data.user_checked_out, data.id])
+    },
+    getCheckOutList: (con, crit, callback) => {
+        let sql = "SELECT t.*,v.name as vehicle FROM trx t LEFT JOIN vehicle v ON t.vehicle_id=v.id WHERE t.checked_out IS NOT NULL ";
+        if (crit.vehicle_id != '') sql = sql + "AND t.vehicle_id = "+crit.vehicle_id+" ";
+        if (crit.date != '') sql = sql + "AND DATE(t.checked_out) = '"+crit.date+"' ";
+        sql = sql + "ORDER BY t.id DESC ";
+        //console.log(sql);
+        con.query(sql, callback);
+    },
 }
